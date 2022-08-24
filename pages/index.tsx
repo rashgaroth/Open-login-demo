@@ -45,17 +45,23 @@ const Home: NextPage = () => {
       [id]: value
     }))
   }
-  
-  const login = async () => {
-    setIsLoading(true)
-    if (!web3auth) {
-      console.log("web3auth not initialized yet")
-      return
-    }
-    const web3authProvider = await web3auth.connect()
 
-    setProvider(web3authProvider)
-    setIsLoading(false)
+  const login = async () => {
+    try {
+      // setIsLoading(true)
+      if (!web3auth) {
+        console.log("web3auth not initialized yet")
+        setIsLoading(false)
+        return
+      }
+      const web3authProvider = await web3auth.connect()
+  
+      setProvider(web3authProvider)
+      // setIsLoading(false)
+    } catch (error) {
+      console.error(error, '@errorLogin?')
+      // setIsLoading(false)
+    }
   };
 
   const getUserWalletInfo = async () => {
@@ -213,13 +219,6 @@ const Home: NextPage = () => {
           ) : (
           <Stack direction={'row'} spacing={4} mt={5}>
             <LoadingButton 
-              endIcon={
-                <Avatar 
-                  alt='linelogo' 
-                  src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/2048px-LINE_logo.svg.png' 
-                  sx={{ width: 25, height: 25 }} 
-                />
-              } 
               variant='contained'
               loading={isLoading}
               onClick={login}
@@ -239,7 +238,7 @@ const Home: NextPage = () => {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            Dwiyan
           </span>
         </a>
       </footer>
